@@ -65,24 +65,15 @@ bool HttpHelper::IsDomain(const char *host)
 
 unsigned long HttpHelper::Resolve(const char * domain)
 {
-    struct hostent *hptr = NULL;
     struct sockaddr_in addr;
     struct hostent hostinfo, *host;
     char    buf[1024];
     int ret;
-    int result = gethostbyname_r(domain, &hostinfo, buf, sizeof(buf), &host, &ret);
+    int result = gethostbyname_r(domain.c_str(), &hostinfo, buf, sizeof(buf), &host, &ret);
     if (-1 == result)
     {
         return 0;
     }
-    switch (hptr->h_addrtype)
-    {
-    case AF_INET:
-    case AF_INET6:
-        memcpy(&addr.sin_addr.s_addr, hptr->h_addr_list[0], hptr->h_length);
-        return addr.sin_addr.s_addr;
-
-    default:
-        return 0;
-    }
+    memcpy(&addr.sin_addr.s_addr, hostinfo.h_addr_list[0], hostinfo.h_length);
+    return addr.sin_addr.s_addr;
 }
