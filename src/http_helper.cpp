@@ -70,7 +70,7 @@ unsigned long HttpHelper::Resolve(const char * domain)
     struct hostent hostinfo, *host;
     char    buf[1024];
     int ret;
-    int result = gethostbyname_r(domain.c_str(), &hostinfo, buf, sizeof(buf), &host, &ret);
+    int result = gethostbyname_r(domain, &hostinfo, buf, sizeof(buf), &host, &ret);
     if (-1 == result)
     {
         return 0;
