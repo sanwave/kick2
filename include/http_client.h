@@ -21,6 +21,7 @@ struct IHttpHandler
 
 class HttpRespHandler :public IHttpHandler
 {
+public:
     virtual void Handle(Connection *connection, HttpClient *client, void *userData);
 	virtual ~HttpRespHandler(){}
 };
